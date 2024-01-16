@@ -3,8 +3,9 @@ import { Box, Button, Flex, Image, Link, Spacer, Show, Hide, Fade } from '@chakr
 import Discord from "./assets/social-media-icons/discord.gif";
 import Twitter from "./assets/social-media-icons/twitter.gif";
 import sc from "./assets/social-media-icons/sc.gif";
+import styles from "./styles/styles.css"
 import { useState } from 'react';
-import { useContractRead, useContract, useContractWrite, useAddress, ThirdwebProvider, ChainId, useDisconnect } from "@thirdweb-dev/react";
+import { useContractRead, useContract, useContractWrite, useAddress, ThirdwebProvider, ChainId, useDisconnect, ConnectWallet } from "@thirdweb-dev/react";
 
 
 const NavBar = ({ accounts, setAccounts }) => {
@@ -14,9 +15,9 @@ const NavBar = ({ accounts, setAccounts }) => {
 
     const [showStake, setShowStake] = useState(false);
 
-  const handleClick = () => {
-    setShowStake(true);
-  };
+    const handleClick = () => {
+        setShowStake(true);
+    };
 
 
     return (
@@ -44,35 +45,43 @@ const NavBar = ({ accounts, setAccounts }) => {
                         <Image src={Discord} boxSize="50px" margin="0 15px" />
                     </Link>
                     <Spacer />
-                        <Box
-                            height="50px"
-                            width="150px"
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="center"
-                            color="white"
-                            margin="0px 0px"
-                            cursor="pointer"
-                            borderColor="#FFFFFF"
-                            role="button"
-                            transition="0.3s"
-                            padding="20px 20px"
-                            textDecoration="underline"
-                            sx={{
-                                position: 'relative',
-                                '&:after': {
-                                    content: '""',
-                                    position: 'absolute',
-                                    width: '100%',
-                                    height: '1px',
-                                    bottom: 0,
-                                    left: 0,
-                                    bg: 'black',
-                                }
-                            }}
-                        >
-                            Stake
-                        </Box>
+                    <Box
+                        height="50px"
+                        width="150px"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        color="white"
+                        margin="0px 0px"
+                        cursor="pointer"
+                        borderColor="#FFFFFF"
+                        role="button"
+                        transition="0.3s"
+                        padding="20px 20px"
+                        textDecoration="underline"
+                        sx={{
+                            position: 'relative',
+                            '&:after': {
+                                content: '""',
+                                position: 'absolute',
+                                width: '100%',
+                                height: '1px',
+                                bottom: 0,
+                                left: 0,
+                                bg: 'black',
+                            }
+                        }}
+                    >
+                        Pass
+                    </Box>
+                    <Spacer />
+                    <ConnectWallet
+                        btnTitle="Connect"
+                        className={styles.connectButton}
+                        detailsBtn={() => {
+                            return null;
+                        }}
+                    />
 
 
                     {address ? (
@@ -84,10 +93,12 @@ const NavBar = ({ accounts, setAccounts }) => {
                             _hover={{ bg: "gray.200" }}
                             role="button"
                             transition="0.3s"
+                            textDecoration="underline"
                         >
                             Disconnect
                         </Box>
                     ) : null}
+
 
                 </Flex>
 

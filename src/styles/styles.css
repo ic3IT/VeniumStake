@@ -1,0 +1,43 @@
+/* Styles for .tw-connect-wallet.css-2zasch */
+.tw-connect-wallet.css-2zasch {
+    background-color: #FFF !important;
+    /* border-radius: 2px !important; */
+    /* -webkit-box-shadow: 10px 10px 20px -6px rgba(100, 230, 250, 0.7) !important; */
+    /* -moz-box-shadow: 10px 10px 20px -6px rgba(100, 230, 250, 0.7) !important; */
+    /* box-shadow: 0px 0px 20px 2px rgba(100, 230, 250, 0.7) !important; */
+    color: #000 !important;
+    cursor: pointer !important;
+    font-size: 100% !important;
+    height: 43px !important;
+    width: 40px !important;
+    padding: 0 25px !important;
+    position: relative !important;
+    text-align: center !important;
+    transition: all 0.15s ease-in-out !important;
+  }
+  
+  /* Hover styles for .tw-connect-wallet.css-2zasch */
+  .tw-connect-wallet.css-2zasch:hover {
+    box-shadow: 0px 0px 40px 5px rgba(100, 230, 250, 0.7) !important;
+    transform: translateY(-2px) !important;
+  }
+
+  /* .chakra-button.css-1une1g3 {
+    box-shadow: 0px 0px 40px 5px rgba(100, 230, 250, 0.7) !important;
+    transform: translateY(-2px) !important;
+  } */
+
+  /* .button {
+    color: #000 !important;
+    cursor: pointer !important;
+    font-size: 100% !important;
+    height: 43px !important;
+    width: 40px !important;
+    padding: 0 25px !important;
+    position: relative !important;
+    text-align: center !important;
+    transition: all 0.15s ease-in-out !important;
+  } */
+
+
+

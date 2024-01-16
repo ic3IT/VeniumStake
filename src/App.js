@@ -1,6 +1,6 @@
 import{ useState } from 'react';
 import './App.css';
-import MainMint from './MainMint';
+import Stake from './Stake';
 import NavBar from './NavBar';
 import { useContractRead, useContract, ThirdwebProvider } from "@thirdweb-dev/react";
 
@@ -16,7 +16,7 @@ function App() {
     <NavBar accounts={accounts} setAccounts={setAccounts} />
     <div><br></br></div>
     <div><br></br></div>
-    <MainMint accounts={accounts} setAccounts={setAccounts} />
+    <Stake accounts={accounts} setAccounts={setAccounts} />
 </div>
 <div className="moving-background"> </div>
 
