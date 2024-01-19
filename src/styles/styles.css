@@ -22,22 +22,136 @@
     transform: translateY(-2px) !important;
   }
 
-  /* .chakra-button.css-1une1g3 {
+
+  
+  .web3ButtonRight {
+    position: absolute !important;
+    height: 0px !important; /* Reduced from 30px */
+    width: 150px !important; /* Reduced from 100px */
+    padding: 0px !important; /* Adjust padding as needed */
+    font-size: 14px !important; 
+    top: -60px !important;
+    right: 25px !important;
+    border-radius: 10px !important;
+    /* Add other styles if needed */
+  }
+  
+  
+  .web3ButtonRight:hover {
     box-shadow: 0px 0px 40px 5px rgba(100, 230, 250, 0.7) !important;
     transform: translateY(-2px) !important;
-  } */
+    background: white !important;
+    /* color: teal !important; */
+  }
 
-  /* .button {
-    color: #000 !important;
-    cursor: pointer !important;
-    font-size: 100% !important;
-    height: 43px !important;
-    width: 40px !important;
-    padding: 0 25px !important;
-    position: relative !important;
-    text-align: center !important;
-    transition: all 0.15s ease-in-out !important;
-  } */
+  .buttonY {
+    position: absolute !important;
+    height: 40px !important; /* Reduced from 30px */
+    width: 150px !important; /* Reduced from 100px */
+    padding: 0px !important; /* Adjust padding as needed */
+    font-size: 14px !important; 
+    top: -57px !important;
+    right: 25px !important;
+    border-radius: 10px !important;
+    /* Add other styles if needed */
+  }
 
+  .buttonY:hover {
+    box-shadow: 0px 0px 40px 5px rgba(100, 230, 250, 0.7) !important;
+    transform: translateY(-2px) !important;
+    background: white !important;
+    /* color: teal !important; */
+  }
+
+  .buttonX {
+    position: absolute !important;
+    height: 40px !important; /* Reduced from 30px */
+    width: 150px !important; /* Reduced from 100px */
+    padding: 0px !important; /* Adjust padding as needed */
+    font-size: 14px !important; 
+    top: -57px !important;
+    left: 25px !important;
+    border-radius: 10px !important;
+    /* Add other styles if needed */
+  }
+
+  .buttonX:hover {
+    box-shadow: 0px 0px 40px 5px rgba(100, 230, 250, 0.7) !important;
+    transform: translateY(-2px) !important;
+    background: white !important;
+    /* color: teal !important; */
+  }
+
+  .web3ButtonLeft {
+    position: absolute !important;
+    height: 0px !important; /* Reduced from 30px */
+    width: 150px !important; /* Reduced from 100px */
+    padding: 0px !important; /* Adjust padding as needed */
+    font-size: 14px !important; 
+    top: -60px !important;
+    left: 25px !important;
+    border-radius: 10px !important;
+    /* Add other styles if needed */
+  }
+  
+  .web3ButtonLeft:hover {
+    box-shadow: 0px 0px 40px 5px rgba(100, 230, 250, 0.7) !important;
+    transform: translateY(-2px) !important;
+    background: white !important;
+    /* color: teal !important; */
+  }
+
+  .web3ButtonBottom {
+    position: absolute !important;
+    height: 0px !important; /* Reduced from 30px */
+    width: 150px !important; /* Reduced from 100px */
+    padding: 0px !important; /* Adjust padding as needed */
+    font-size: 14px !important; 
+    top: -100px !important;
+    left: -80px !important;
+    border-radius: 10px !important;
+    background-color: rgb(81, 231, 22) !important;
+    /* Add other styles if needed */
+  }
+  
+  .web3ButtonBottom:hover {
+    box-shadow: 0px 0px 40px 5px rgba(100, 230, 250, 0.7) !important;
+    transform: translateY(-2px) !important;
+    background: white !important;
+    /* color: teal !important; */
+  }
+  
+/* animations.css */
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.bounce-animation {
+  animation: bounce 3s ease-in-out 3; /* 3 specifies the number of times */
+}
+
+.nft-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important; /* Adjust the min width to accommodate wider items */
+  grid-gap: 10px !important;
+  align-items: start !important;
+  justify-content: start !important;
+}
+
+
+.nft-item {
+  width: auto !important;
+  height: 200px !important;
+  object-fit: scale-down !important;
+}
 
 

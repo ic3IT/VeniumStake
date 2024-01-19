@@ -45,6 +45,7 @@ const NavBar = ({ accounts, setAccounts }) => {
                         <Image src={Discord} boxSize="50px" margin="0 15px" />
                     </Link>
                     <Spacer />
+                    <Link href="https://pass.venium.io" target="_blank" rel="noopener noreferrer">
                     <Box
                         height="50px"
                         width="150px"
@@ -74,6 +75,7 @@ const NavBar = ({ accounts, setAccounts }) => {
                     >
                         Pass
                     </Box>
+                    </Link>
                     <Spacer />
                     <ConnectWallet
                         btnTitle="Connect"

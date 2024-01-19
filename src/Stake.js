@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
 import { ethers } from 'ethers'
-import { Box, Flex, Button, Input, Text, MenuButton } from "@chakra-ui/react";
+import { Box, Flex, Button, Input, Text, MenuButton, textDecoration } from "@chakra-ui/react";
 import scrolliumPass from "./ScrolliumPass.json";
 import sc from "./assets/social-media-icons/ssc.gif";
-
-import detectEthereumProvider from "@metamask/detect-provider";
+import './styles/styles.css'; // Adjust the path according to your file structure
+import NFTDisplay from "./NFTDisplay.js"
 import {
   useContractRead,
   useContract,
@@ -47,28 +47,24 @@ import {
 import { MetamaskLogo } from "./assets/icons/MetamaskLogo.tsx";
 import { WalletConnectLogo } from "./assets/icons/WalletConnectLogo.tsx";
 import { CoinbaseLogo } from "./assets/icons/CoinbaseLogo.tsx";
+import NFTCard from "./NFTCard.js";
 
-const nftAddress = "0xC5047644e26AAC3075faE25Bf042E540d23c1025";
-const stakeAddress = "0x3cB01292c85065E34a8fE3efADDD5530A1DBC973";
+const nftAddress = "0x2E07070E527321139499a8EBC2bA3bB03fa7eC0F";
+const stakeAddress = "0x37027c59D999C13E2399635dA20e9f5dFDb5a3B2";
 
 const Stake = ({ accounts, setAccounts }) => {
   const { contract } = useContract(stakeAddress);
+  
 
-  const connectWithCoinbaseWallet = useCoinbaseWallet();
-  const connectWithWalletConnect = useWalletConnect();
-  const connectWithMetamask = useMetamask();
 
   const address = useAddress();
+  console.log(address)
   const disconnect = useDisconnect();
 
   const { contract: nftContract } = useContract(nftAddress);
   const { contract: stakingContract } = useContract(stakeAddress);
-  const {data: stakedNFTs} = useContractRead(stakingContract, "getStakeInfo", [address]);
-  // console.log(stakedNFTs)
-  // const {data: Approved} = useContract(isApproved);
-
+  const { data: stakedNFTs } = useContractRead(stakingContract, "getStakeInfo", [address]);
   const { data: ownedNFTs } = useOwnedNFTs(nftContract, address)
-  const { data: ownerBalance } = useNFTBalance(nftContract, address);
 
 
   async function stakeNft(nftId) {
@@ -82,9 +78,6 @@ const Stake = ({ accounts, setAccounts }) => {
     if (!isApproved) {
       await nftContract?.erc721.setApprovalForAll(stakeAddress, true);
     }
-    // console.log(isApproved)
-    // console.log(nftId)
-    // nftId = `${nftId}`
     await stakingContract?.call("stake", [[nftId]]);
   }
 
@@ -112,107 +105,177 @@ const Stake = ({ accounts, setAccounts }) => {
     }
   }
 
+  const [isCooldown, setIsCooldown] = useState(false);
+  
+
+const notStaking = () => {
+  if (!address) {
+      toast.error("Wallet Not Connected")
+      return;
+    }
+
+  if (!stakedNFTs || !Array.isArray(stakedNFTs[0]) || stakedNFTs[0].length === 0) {
+    toast.error("Currently Not Staking");
+    return
+  }
+}
+
+  const handleButtonClick = () => {
+    if (isCooldown) {
+      // Ignore the click if we're in cooldown
+      return;
+    }
+    
+    if (!address) {
+      toast.error("Wallet Not Connected")
+      return;
+    }
+
+    toast.error("You Don't Own a Pass");
+
+    // Start cooldown
+    setIsCooldown(true);
+
+    // End cooldown after 3 seconds
+    setTimeout(() => {
+      setIsCooldown(false);
+    }, 3000);
+  };
+
+
+
   async function withdrawFirstNft() {
     if (!address || !stakedNFTs || stakedNFTs.length === 0 || !stakedNFTs._tokensStaked || stakedNFTs._tokensStaked.length === 0) return;
-  
+
     const firstNftId = stakedNFTs._tokensStaked[0].toNumber();
     await stakingContract?.call("withdraw", [[firstNftId]]);
   }
 
-return (
+  return (
+
     <Box align="center" bg="black" mt="-123px">
       {/* Box for Scrollium Pass Text */}
-      <Box width="fit-content" height="auto" p="2">
+      <Box width="" height="auto" p="0">
         <Text fontSize="60px" textShadow="0 5px #000000">
           Scrollium Pass
         </Text>
+        {!address ? (
+          <Text fontSize="20px" textShadow="0 5px #000000" height="1px" className="bounce-animation" style={{ textDecoration: 'underline' }}
+          >
+            Connect Your Wallet
+          </Text>
+        ) : (
+          <Text fontSize="20px" textShadow="0 5px #000000" height="1px">
+            Rewards:
+          </Text>
+        )
+        }
       </Box>
 
       {/* Flex container for the two boxes */}
       <Flex justify="center" h="75vh" pt="108px">
         {/* Left Box with Button Outside */}
-        <Box 
+        <Box
           position="relative"
-          w="38%" 
-          h="70%" 
+          w="38%"
+          h="70%"
           borderRadius="30px"
-          p="4" 
+          p="4"
           border="1px solid white"
-          boxShadow="md" 
+          boxShadow="md"
           m="2"
           color="white"
         >
-          <Button 
-          position="absolute"  
-          height="30px"
-          width="150px" 
-          top="-45px" 
-          left="25px"
-          borderRadius="10px"
-          _hover={{
-            boxShadow: "0px 0px 40px 5px rgba(100, 230, 250, 0.7)",
-            transform: "translateY(-2px)",
-            background: "white",
-            color: "teal.500",
-          }}          
-          >
-            Stake
-          </Button>
-          <Text>Owned</Text>
-         
+          {
+          ownedNFTs && ownedNFTs.length > 0 ? (
+    ownedNFTs.map((nft) => (
+      <Web3Button
+        contractAddress={stakeAddress}
+        action={() => stakeNft(nft.metadata.id)}
+        className="web3ButtonLeft"
+      >
+        Stake
+      </Web3Button>
+    ))
+  ) : (
+    <Button
+      className="buttonX"
+      onClick={handleButtonClick}
+    >
+      Stake
+    </Button>
+  )
+}
+
+
+<Text>
+  Owned: {ownedNFTs?.map((nft) => nft.metadata.id).join(', ')}
+</Text>
+
+          {
+  ownedNFTs && ownedNFTs.length > 0 && (
+    <ThirdwebNftMedia metadata={ownedNFTs[0].metadata} />
+  )
+}
+
         </Box>
 
         {/* Right Box with Button Outside */}
-        <Box 
+        <Box
           position="relative"
-          w="38%" 
-          h="70%" 
-          p="4" 
+          w="38%"
+          h="70%"
+          p="4"
           border="1px solid white"
           borderRadius="30px"
-          boxShadow="md" 
+          boxShadow="md"
           m="2"
-          color="white"
+          color
+          ="white"
         >
-          <Button 
-          position="absolute"  
-          height="30px"
-          width="150px" 
-          top="-45px" 
-          right="25px"
-          borderRadius="10px"
-          _hover={{
-            boxShadow: "0px 0px 40px 5px rgba(100, 230, 250, 0.7)",
-            transform: "translateY(-2px)",
-            background: "white",
-            color: "teal.500",
-          }}          
-          >
-           Claim
-          </Button>
-          <Text>Staked</Text>
-          {/* Other contents of the right box */}
-          <Button 
-          onClick={withdrawFirstNft}
-          position="absolute"  
-          height="30px"
-          width="150px" 
-          bottom="-45px" 
-          right="25px"
-          borderRadius="10px"
-          _hover={{
-            boxShadow: "0px 0px 40px 5px rgba(100, 230, 250, 0.7)",
-            transform: "translateY(-2px)",
-            background: "white",
-            color: "teal.500",
-          }}          
-          >
-           Withdraw
-          </Button>
+          {address ? (
+            <div>
+
+            </div>
+          ) : (null)}
+        <Text>
+  Staked {stakedNFTs?.[0].map((stakedNFT) => 
+    <NFTDisplay tokenId={stakedNFT.toNumber()} nftContract={nftContract} />
+  ).reduce((prev, curr) => prev === null ? [curr] : [...prev, ', ', curr], null)}
+</Text>
+
+
+          <Box>
+          {
+  stakedNFTs && Array.isArray(stakedNFTs[0]) && stakedNFTs[0].length > 0 ? (
+    <div key={stakedNFTs[0][0].toString()}>
+      <NFTCard tokenId={stakedNFTs[0][0].toNumber()} />
+    </div>
+  ) : (
+    <Button
+      className="buttonY"
+      onClick={notStaking}
+    >
+      Withdraw
+    </Button>
+  )
+}
+
+
+          </Box>
+
+          {address ? (
+            <Web3Button
+              contractAddress={stakeAddress}
+              className="web3ButtonBottom"
+            >
+              Claim
+            </Web3Button>
+          ) : (null)}
         </Box>
       </Flex>
     </Box>
-);
+  );
 };
 
 export default Stake;
