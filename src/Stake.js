@@ -49,8 +49,8 @@ import { WalletConnectLogo } from "./assets/icons/WalletConnectLogo.tsx";
 import { CoinbaseLogo } from "./assets/icons/CoinbaseLogo.tsx";
 import NFTCard from "./NFTCard.js";
 
-const nftAddress = "0x2E07070E527321139499a8EBC2bA3bB03fa7eC0F";
-const stakeAddress = "0x37027c59D999C13E2399635dA20e9f5dFDb5a3B2";
+const nftAddress = "0xFbBce08d3395314C70EC7696AEb9A1882C893632";
+const stakeAddress = "0x224D2b36b79BE59dBA3F98B4fEE92a9035EfbdB8";
 
 const Stake = ({ accounts, setAccounts }) => {
   const { contract } = useContract(stakeAddress);
@@ -82,14 +82,14 @@ const Stake = ({ accounts, setAccounts }) => {
   }
 
   const desiredNetwork = {
-    chainId: "0x8274f",
-    chainName: "Scroll Testnet",
+    chainId: "0x82750",
+    chainName: "Scroll",
     nativeCurrency: {
       name: "ETH",
       symbol: "ETH",
       decimals: 18,
     },
-    rpcUrls: ["https://sepolia-rpc.scroll.io"],
+    rpcUrls: ["https://rpc.scroll.io"],
     blockExplorerUrls: ["https://scrollscan.com/"],
   };
 

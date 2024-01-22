@@ -12,9 +12,9 @@ root.render(
     <ThirdwebProvider 
     activeChain={{
       // === Required information for connecting to the network === \\
-      chainId: 534351, // Chain ID of the network
+      chainId: 534352, // Chain ID of the network
       // Array of RPC URLs to use
-      rpc: ["https://sepolia-rpc.scroll.io"],
+      rpc: ["https://rpc.scroll.io	"],
 
       // === Information for adding the network to your wallet (how it will appear for first time users) === \\
       // Information about the chain's native currency (i.e. the currency that is used to pay for gas)

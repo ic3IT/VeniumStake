@@ -10,8 +10,8 @@ import {
   import styles from "./styles/styles.css"
   
   const NFTCard = ({ tokenId }) => {
-    const nftAddress = "0x2E07070E527321139499a8EBC2bA3bB03fa7eC0F";
-    const stakeAddress = "0x37027c59D999C13E2399635dA20e9f5dFDb5a3B2";
+    const nftAddress = "0xFbBce08d3395314C70EC7696AEb9A1882C893632";
+    const stakeAddress = "0x224D2b36b79BE59dBA3F98B4fEE92a9035EfbdB8";
     const address = useAddress();
     const { contract: nftContract } = useContract(nftAddress);
     const { contract: stakeContract } = useContract(stakeAddress);
