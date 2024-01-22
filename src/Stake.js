@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
 import { ethers } from 'ethers'
-import { Box, Flex, Button, Input, Text, MenuButton, textDecoration } from "@chakra-ui/react";
+import { Box, Flex, Button, Input, Text, MenuButton, textDecoration, Image } from "@chakra-ui/react";
 import scrolliumPass from "./ScrolliumPass.json";
 import sc from "./assets/social-media-icons/ssc.gif";
 import './styles/styles.css'; // Adjust the path according to your file structure
+import card from "./assets/social-media-icons/output-onlinegiftools.gif";
 import NFTDisplay from "./NFTDisplay.js"
 import {
   useContractRead,
@@ -242,7 +243,7 @@ const notStaking = () => {
 
           {
   ownedNFTs && ownedNFTs.length > 0 && (
-    <ThirdwebNftMedia metadata={ownedNFTs[0].metadata} />
+    <Image src={card} height="320px" width="320px" />
   )
 }
 

@@ -6,8 +6,9 @@ import {
     Web3Button,
     useAddress,
   } from "@thirdweb-dev/react";
-  import { Box, Flex, Button, Input, Text, MenuButton } from "@chakra-ui/react";
+  import { Box, Flex, Button, Input, Text, MenuButton, Image } from "@chakra-ui/react";
   import styles from "./styles/styles.css"
+  import card from "./assets/social-media-icons/output-onlinegiftools.gif";
   
   const NFTCard = ({ tokenId }) => {
     const nftAddress = "0xFbBce08d3395314C70EC7696AEb9A1882C893632";
@@ -29,9 +30,7 @@ import {
         {nft && (
           <Flex flexDirection="column">
             <div>
-            <ThirdwebNftMedia 
-                metadata={nft.metadata}
-                />
+            <Image src={card} height="320px" width="320px" />
             </div>
             <Web3Button
             action={() => withdraw(nft.metadata.id)}
