@@ -150,27 +150,53 @@ const notStaking = () => {
     const firstNftId = stakedNFTs._tokensStaked[0].toNumber();
     await stakingContract?.call("withdraw", [[firstNftId]]);
   }
+  
+  const [claimableRewards, setClaimableRewards] = useState();
+
+      useEffect(() => {
+        if (!stakingContract || !address) return;
+
+        async function loadClaimableRewards() {
+          const stakeInfo = await stakingContract?.call("getStakeInfo", [address]);
+          setClaimableRewards(stakeInfo[1]);
+        }
+
+        loadClaimableRewards();
+      }, [address, stakingContract]);
+
+      // const { mutateAsync: claimRewards } = useContractWrite(
+      //   stakingContract,
+      //   "claimRewards"
+      // );
+      
+
 
   return (
 
     <Box align="center" bg="black" mt="-123px">
       {/* Box for Scrollium Pass Text */}
       <Box width="" height="auto" p="0">
-        <Text fontSize="60px" textShadow="0 5px #000000">
-          Scrollium Pass
-        </Text>
-        {!address ? (
-          <Text fontSize="20px" textShadow="0 5px #000000" height="1px" className="bounce-animation" style={{ textDecoration: 'underline' }}
-          >
-            Connect Your Wallet
-          </Text>
-        ) : (
-          <Text fontSize="20px" textShadow="0 5px #000000" height="1px">
-            Rewards:
-          </Text>
-        )
-        }
-      </Box>
+  <Text fontSize="60px" textShadow="0 5px #000000">
+    Scrollium Pass
+  </Text>
+  {!address ? (
+    <Text fontSize="20px" textShadow="0 5px #000000" height="1px" className="bounce-animation" style={{ textDecoration: 'underline' }}>
+      Connect Your Wallet
+    </Text>
+  ) : (
+    <Flex justifyContent="center" alignItems="center"> {/* Center content horizontally */}
+      <Text fontSize="20px" textShadow="0 5px #000000" mr="2">
+        Rewards:
+      </Text>
+      <p>
+        {!claimableRewards
+          ? "Loading..."
+          : Math.floor(Number(ethers.utils.formatUnits(claimableRewards, 18))).toString()} sVEN
+      </p>
+    </Flex>
+  )}
+</Box>
+
 
       {/* Flex container for the two boxes */}
       <Flex justify="center" h="75vh" pt="108px">
@@ -239,7 +265,7 @@ const notStaking = () => {
             </div>
           ) : (null)}
         <Text>
-  Staked {stakedNFTs?.[0].map((stakedNFT) => 
+  Staked: {stakedNFTs?.[0].map((stakedNFT) => 
     <NFTDisplay tokenId={stakedNFT.toNumber()} nftContract={nftContract} />
   ).reduce((prev, curr) => prev === null ? [curr] : [...prev, ', ', curr], null)}
 </Text>
@@ -264,14 +290,19 @@ const notStaking = () => {
 
           </Box>
 
-          {address ? (
-            <Web3Button
-              contractAddress={stakeAddress}
-              className="web3ButtonBottom"
-            >
-              Claim
-            </Web3Button>
-          ) : (null)}
+          <Box>
+  {address ? (
+    <Flex alignItems="center"> {/* Use Flex with horizontal alignment */}
+      <Web3Button
+       contractAddress={stakeAddress}
+        action={(stakingContract) => stakingContract.call("claimRewards")}
+        className="web3ButtonBottom"
+      >
+        Claim 
+      </Web3Button>
+    </Flex>
+  ) : null}
+</Box>
         </Box>
       </Flex>
     </Box>
