@@ -164,6 +164,8 @@ const notStaking = () => {
         loadClaimableRewards();
       }, [address, stakingContract]);
 
+      console.log(claimableRewards)
+
       // const { mutateAsync: claimRewards } = useContractWrite(
       //   stakingContract,
       //   "claimRewards"
